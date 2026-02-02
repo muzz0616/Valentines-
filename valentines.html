@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Moomoo 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffc0cb, #ff6b81);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  background: #fff0f5;
+  padding: 22px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  max-width: 360px;
+  width: 90%;
+  z-index: 2;
+}
+
+img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 12px;
+}
+
+h1 {
+  color: #ff4d6d;
+}
+
+p {
+  color: #444;
+}
+
+#countdown {
+  font-weight: bold;
+  color: #ff4d6d;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 12px 26px;
+  margin: 8px;
+  border-radius: 30px;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+.no {
+  background: #ffd6dc;
+  color: #ff4d6d;
+}
+
+.no.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+
+.message {
+  display: none;
+  animation: fadeIn 1.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.floating {
+  position: absolute;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="question">
+  <img src="photo.jpg" alt="Us 💕">
+  <h1>Moomoo 💖</h1>
+
+  <div id="countdown"></div>
+
+  <p>Will you be my Valentine?</p>
+  <button class="yes" onclick="yesClicked()">Yes 💕</button>
+  <button class="no" id="noBtn" onclick="noClicked()">No 🙄</button>
+</div>
+
+<div class="container message" id="love">
+  <h1>You said YES 😭❤️</h1>
+  <p>
+    Moo My love… this just made my heart lose its mind.<br><br>
+    I want your love, your care, your support, your warmth, your hugs, your kisses,  
+    and all the chaos we bring together 😏💞<br><br>
+    You’re mine today, tomorrow, and every Valentine after.
+  </p>
+  <h3>— Muzz 💘</h3>
+</div>
+
+<script>
+let noClicks = 0;
+
+function yesClicked() {
+  document.getElementById("question").style.display = "none";
+  document.getElementById("love").style.display = "block";
+  heartsAndKisses();
+  setTimeout(() => {
+    alert("I love you more than you’ll ever know ❤️");
+  }, 1200);
+}
+
+function noClicked() {
+  noClicks++;
+  const btn = document.getElementById("noBtn");
+  btn.classList.add("shake");
+  setTimeout(() => btn.classList.remove("shake"), 400);
+
+  if (noClicks === 1) alert("Try again 😌");
+  if (noClicks === 2) alert("Say yes or else 😈");
+  if (noClicks >= 3) btn.style.display = "none";
+}
+
+function heartsAndKisses() {
+  setInterval(() => {
+    const el = document.createElement("div");
+    el.className = "floating";
+    el.innerHTML = Math.random() > 0.5 ? "❤️" : "💋";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.fontSize = (Math.random() * 22 + 12) + "px";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 5000);
+  }, 250);
+}
+
+// Countdown
+const valentines = new Date("Feb 14, 2026 00:00:00").getTime();
+setInterval(() => {
+  const now = new Date().getTime();
+  const d = valentines - now;
+  const days = Math.floor(d / (1000 * 60 * 60 * 24));
+  document.getElementById("countdown").innerText =
+    days >= 0 ? `⏳ ${days} days until Valentine’s Day ❤️` : "❤️ Happy Valentine’s Day ❤️";
+}, 1000);
+</script>
+
+</body>
+</html>
